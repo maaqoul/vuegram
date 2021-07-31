@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="col2">
-        <form>
+        <form @submit.prevent>
           <h1>Welcome Back</h1>
           <div>
             <label for="email1">Email</label>
@@ -19,13 +19,19 @@
               name="email1"
               id="email!"
               placeholder="you@email.com"
+              v-model.trim="loginForm.email"
             />
           </div>
           <div>
             <label for="password1">Password</label>
-            <input type="password" name="password1" id="password1" />
+            <input
+              type="password"
+              name="password1"
+              id="password1"
+              v-model="loginForm.password"
+            />
           </div>
-          <button class="button">Log In</button>
+          <button class="button" @click="login()">Log In</button>
           <div class="extras">
             <a href="#">Forgot Password</a>
             <a href="#">Create an account</a>
@@ -37,7 +43,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      loginForm: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    login() {
+      this.$store.dispatch("login", {
+        email: this.loginForm.email,
+        password: this.loginForm.password,
+      });
+    },
+  },
+};
 </script>
 
 <style></style>

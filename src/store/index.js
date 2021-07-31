@@ -35,6 +35,22 @@ export default new Vuex.Store({
       // change rout to dashboard
       router.push("/");
     },
+    async signup({ dispatch }, form) {
+      // sign user up
+      const { user } = await fb.auth.createUserWithEmailAndPassword(
+        form.email,
+        form.password
+      );
+
+      // create user profile object in userCollections
+      await fb.usersCollection.doc(user.id).set({
+        name: form.name,
+        username: form.username,
+      });
+
+      // fetch user profile and set in state
+      dispatch("fetchUserProfile", user);
+    },
   },
   modules: {},
 });

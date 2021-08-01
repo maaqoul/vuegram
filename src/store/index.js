@@ -6,7 +6,7 @@ import router from "../router/index";
 Vue.use(Vuex);
 
 // real time firebase connection
-fb.postCollection.orderBy("createdOn", "desc").onSnapshot((snapshot) => {
+fb.postsCollection.orderBy("createdOn", "desc").onSnapshot((snapshot) => {
   let postArray = [];
   snapshot.forEach((doc) => {
     let post = doc.data();
@@ -76,7 +76,7 @@ const store = new Vuex.Store({
       router.push("/login");
     },
     async createPost({ state }, post) {
-      await fb.postCollection.add({
+      await fb.postsCollection.add({
         createdOn: new Date(),
         content: post.content,
         userId: fb.auth.currentUser.uid,

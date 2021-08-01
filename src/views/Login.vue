@@ -1,5 +1,9 @@
 <template>
   <div id="login">
+    <PasswordReset
+      v-if="showPasswordReset"
+      @close="togglePasswordReset()"
+    ></PasswordReset>
     <section>
       <div class="col1">
         <h1>VueGram</h1>
@@ -85,7 +89,12 @@
 </template>
 
 <script>
+import PasswordReset from "../components/PasswordReset.vue";
+
 export default {
+  components: {
+    PasswordReset,
+  },
   data() {
     return {
       loginForm: {

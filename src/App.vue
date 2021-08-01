@@ -18,12 +18,6 @@ export default {
       return Object.keys(this.userProfile).length > 1;
     },
   },
-  beforeMount() {
-    console.log("userProfile : ", this.userProfile);
-  },
-  mounted() {
-    console.log("userProfile : ", this.userProfile);
-  },
 };
 </script>
 

@@ -85,6 +85,25 @@ const store = new Vuex.Store({
         likes: 0,
       });
     },
+    async likePost(_, post) {
+      const userId = fb.auth.currentUser.uid;
+      const docId = `${userId}_${post.id}`;
+
+      // check if user has liked post
+      const doc = await fb.likesCollection.doc(docId).get();
+
+      if (doc.exists) return;
+
+      // create post in likes collection
+      await fb.likesCollection.doc(docId).set({
+        postId: post.id,
+        userId: userId,
+      });
+
+      fb.postsCollection.doc(post.id).update({
+        likes: post.likesCount + 1,
+      });
+    },
   },
   modules: {},
 });
